@@ -174,20 +174,6 @@ def extract_frames(video_path, output_folder_path):
     # Release video capture
     cap.release()
     print(f"Extracted {frame_count} frames to {output_folder_path}") 
-
-def alignStrings(modseq, refseq): 
-    refseq = "".ljust(len(modseq), " ") + refseq + "".ljust(len(modseq), " ") 
-    alignment_index = -len(modseq) 
-    modseq = modseq.ljust(len(refseq), " ") 
-    max_score = 0 
-    for i in range(0,len(refseq)): 
-        modseq_instance = "".ljust(i, " ") + modseq[0:-i+len(modseq)] 
-        score = countmatches(modseq_instance, refseq) 
-        if max_score < score: 
-            max_score = score 
-            alignment_index = i 
-    return alignment_index 
-
 def findalignment(modseq_aligned, refseq, filler_chr=" "): # returns the alignment offset and a score. Filler_chr must be a character that does not occur in the inputs 
     
     scores = {}
@@ -230,31 +216,6 @@ def spacestringrecursion(input_string, outputs, current_depth, max_depth, filler
     return outputs 
 
 def multispacestring(input_string, depth, filler_chr=" "): 
-    ''' 
-    →   heeey
-    →  h eeey
-    →  he eey
-    →  hee ey
-    →  heee y
-    →  heeey 
-    → h  eeey
-    → h e eey
-    → h ee ey
-    → h eee y
-    → h eeey 
-    → he  eey
-    → he e ey
-    → he ee y
-    → he eey 
-    → hee  ey
-    → hee e y
-    → hee ey 
-    → heee  y
-    → heee y 
-→ heeey  
-
-    The space moves. The depth refers to the number of spaces. The filler_chr is the space in this example. Must be a character that does not occur in any of the inputs. 
-    ''' 
     outputs = spacestringrecursion(input_string, {}, 0, depth, filler_chr) 
     outputs = list(outputs.keys() ) 
     return outputs 
@@ -325,6 +286,7 @@ def levenshtein_distance(seq1, seq2, filler_chr=" "):
         refseq = "" 
 
         for pair in parts: 
+            print(pair) 
             if pair[0] != pair[1]: 
                 alignment, score = findalignment(pair[0], pair[1], filler_chr) 
                 if alignment < 0: 
@@ -335,10 +297,12 @@ def levenshtein_distance(seq1, seq2, filler_chr=" "):
                     modseq_part = "".ljust(alignment, " ") + pair[0] 
                     modseq += modseq_part 
                     refseq += pair[1].ljust(len(modseq_part), " ") 
+                else: 
+                    modseq += pair[0] 
+                    refseq += pair[1] 
             else: 
                 modseq += pair[0] 
                 refseq += pair[1] 
-
 
         alignment, score = findalignment(modseq, refseq, filler_chr) 
 
@@ -368,7 +332,8 @@ def levenshtein_distance(seq1, seq2, filler_chr=" "):
 
     return refseq, modseq, alignment_visualisation, levenshtein_distance_score 
 
-
+for i in levenshtein_distance("heyyyyyy","hey!!"): 
+    print(i) 
 def images_to_video(folder_path, output_video, fps=30):
     images = [img for img in sorted(os.listdir(folder_path)) if img.endswith(('.png', '.jpg', '.jpeg'))]
     
