@@ -231,22 +231,27 @@ def spacestringrecursion(input_string, outputs, current_depth, max_depth, filler
 
 def multispacestring(input_string, depth, filler_chr=" "): 
     ''' 
-    "hiii" 
-    → "  hiii" 
-    → " h iii" 
-    → " hi ii" 
-    → " h iii" 
-    → "h iii " 
-    → "h ii i" 
-    → "h i ii" 
-    → "h  iii" 
-    → "hi ii " 
-    → "hi ii " 
-    → "hi i i" 
-    → "hi  ii" 
-    → "hii i " 
-    → "hii  i" 
-    → "hiii  " 
+    →   heeey
+    →  h eeey
+    →  he eey
+    →  hee ey
+    →  heee y
+    →  heeey 
+    → h  eeey
+    → h e eey
+    → h ee ey
+    → h eee y
+    → h eeey 
+    → he  eey
+    → he e ey
+    → he ee y
+    → he eey 
+    → hee  ey
+    → hee e y
+    → hee ey 
+    → heee  y
+    → heee y 
+→ heeey  
 
     The space moves. The depth refers to the number of spaces. The filler_chr is the space in this example. Must be a character that does not occur in any of the inputs. 
     ''' 
