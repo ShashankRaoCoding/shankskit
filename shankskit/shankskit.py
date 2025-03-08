@@ -175,20 +175,6 @@ def extract_frames(video_path, output_folder_path):
     cap.release()
     print(f"Extracted {frame_count} frames to {output_folder_path}") 
 
-def spacestringrecursion(input_string, output, current_depth, max_depth, filler_chr): 
-    if current_depth < max_depth: 
-        for i in range(0,len(input_string)+1): 
-            spaced_instance = input_string[0:i] + filler_chr + input_string[i:] 
-            if spaced_instance not in output.keys(): 
-                spacestringrecursion(spaced_instance, output, current_depth+1, max_depth, filler_chr) 
-    else: 
-        output[input_string] = "" 
-    return output 
-
-def multispacestring(input_string, depth, filler_chr=" "): 
-    output = spacestringrecursion(input_string, {}, 0, depth, filler_chr) 
-    return output 
-
 def alignStrings(modseq, refseq): 
     refseq = "".ljust(len(modseq), " ") + refseq + "".ljust(len(modseq), " ") 
     alignment_index = -len(modseq) 
@@ -201,19 +187,6 @@ def alignStrings(modseq, refseq):
             max_score = score 
             alignment_index = i 
     return alignment_index 
-
-def sortbylength(seqs): 
-    sort_dict = {} 
-    for i in seqs: 
-        if len(i) in sort_dict.keys() : 
-            sort_dict[len(i)].append(i) 
-        else : 
-            sort_dict[len(i)] = [i] 
-    
-    output = [] 
-    for i in sorted(list(sort_dict.keys())): 
-        output.extend(sort_dict[i]) 
-    return output 
 
 def findalignment(modseq_aligned, refseq, filler_chr=" "): # returns the alignment offset and a score. Filler_chr must be a character that does not occur in the inputs 
     
