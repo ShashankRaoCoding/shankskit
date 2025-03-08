@@ -8,7 +8,7 @@ setup(
     description='A brief description of your library',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/yourusername/my_library',
+    url='https://github.com/ShashankRaoCoding/shankskit',
     packages=find_packages(),
     classifiers=[
         'Programming Language :: Python :: 3',
